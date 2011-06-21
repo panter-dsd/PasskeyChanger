@@ -8,6 +8,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#ifdef Q_OS_LINUX
+const QString defaultPath = QDir::homePath () + "/.local/share/data/qBittorrent/BT_backup/";
+#endif
+
 MainWindow::MainWindow (QWidget *parent)
 		: QMainWindow (parent), ui_ (new Ui::MainWindow)
 {
@@ -42,7 +46,7 @@ void MainWindow::setPathToTorrents ()
 {
 	const QString dir = QFileDialog::getExistingDirectory (this,
 						tr ("Dir with torrents"),
-						QDir::homePath () + "/.local/share/data/qBittorrent/BT_backup/");
+						defaultPath);
 
 	if (!dir.isEmpty ()) {
 		ui_->pathToTorrentsEdit_->setText (dir);
