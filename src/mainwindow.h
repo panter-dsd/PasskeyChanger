@@ -19,6 +19,10 @@ public:
 protected:
 	void changeEvent (QEvent* e);
 
+private Q_SLOTS:
+	void setPathToTorrents ();
+	void start ();
+
 private:
 	Ui::MainWindow *ui_;
 };
