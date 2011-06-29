@@ -47,6 +47,12 @@ public:
 		return isReady_p ();
 	}
 
+	bool changePasskey (const QString &oldPasskey, const QString &newPasskey) {
+		return !oldPasskey.isEmpty()
+			   && !newPasskey.isEmpty()
+			   && changePasskey_p (oldPasskey, newPasskey);
+	}
+
 Q_SIGNALS:
 	void stateChanged (bool isReady);
 	void configurationComplete ();
@@ -59,6 +65,7 @@ private:
 	virtual QByteArray saveState_p () const = 0;
 	virtual bool restoreState_p (const QByteArray &state) = 0;
 	virtual bool isReady_p () const = 0;
+	virtual bool changePasskey_p (const QString &oldPasskey, const QString &newPasskey) = 0;
 };
 
 #endif // ABSTRACTPASSKEYCHANGER_H
