@@ -20,7 +20,6 @@ ${CMAKE_CURRENT_BINARY_DIR}
 set (src_SRC
 src/main.cpp
 src/mainwindow.cpp
-src/abstractpasskeychanger.cpp
 )
 
 set (src_HEADERS
