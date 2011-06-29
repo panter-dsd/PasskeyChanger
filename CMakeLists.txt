@@ -20,11 +20,13 @@ ${CMAKE_CURRENT_BINARY_DIR}
 set (src_SRC
 src/main.cpp
 src/mainwindow.cpp
+src/torrentfilepasskeychanger.cpp
 )
 
 set (src_HEADERS
 src/mainwindow.h
 src/abstractpasskeychanger.h
+src/torrentfilepasskeychanger.h
 )
 
 set (src_UI
