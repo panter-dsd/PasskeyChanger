@@ -16,6 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QtCore/QDebug>
+
 #include <QtGui/QWidget>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
@@ -50,9 +52,9 @@ TorrentFilePasskeyChanger::~TorrentFilePasskeyChanger()
 
 }
 
-const QWidget *TorrentFilePasskeyChanger::settingsWidget_p () const
+QWidget *TorrentFilePasskeyChanger::settingsWidget_p () const
 {
-
+	return settingsWidget_;
 }
 
 QByteArray TorrentFilePasskeyChanger::saveState_p () const

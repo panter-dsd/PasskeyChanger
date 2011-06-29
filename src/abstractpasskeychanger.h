@@ -28,10 +28,10 @@ class AbstractPasskeyChanger : public QObject
 	Q_OBJECT
 
 public:
-	explicit AbstractPasskeyChanger (QObject *parent = 0) : QObject (this) {}
+	explicit AbstractPasskeyChanger (QObject *parent = 0) : QObject (parent) {}
 	virtual ~AbstractPasskeyChanger() {}
 
-	const QWidget *settingsWidget () const {
+	QWidget *settingsWidget () const {
 		return settingsWidget_p ();
 	}
 
@@ -66,7 +66,7 @@ private:
 	AbstractPasskeyChanger &operator= (const AbstractPasskeyChanger &other);
 
 private:
-	virtual const QWidget *settingsWidget_p () const = 0;
+	virtual QWidget *settingsWidget_p () const = 0;
 	virtual QByteArray saveState_p () const = 0;
 	virtual bool restoreState_p (const QByteArray &state) = 0;
 	virtual bool isReady_p () const = 0;

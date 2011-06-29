@@ -38,7 +38,7 @@ private:
 	TorrentFilePasskeyChanger &operator= (const TorrentFilePasskeyChanger &other);
 
 private:
-	virtual const QWidget *settingsWidget_p () const;
+	virtual QWidget *settingsWidget_p () const;
 	virtual QByteArray saveState_p () const;
 	virtual bool restoreState_p (const QByteArray &state);
 	virtual bool isReady_p () const;
