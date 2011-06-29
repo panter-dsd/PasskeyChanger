@@ -53,6 +53,10 @@ public:
 			   && changePasskey_p (oldPasskey, newPasskey);
 	}
 
+	QString id () const {
+		return id_p ();
+	}
+
 	QString name () const {
 		return name_p ();
 	}
@@ -71,6 +75,7 @@ private:
 	virtual bool restoreState_p (const QByteArray &state) = 0;
 	virtual bool isReady_p () const = 0;
 	virtual bool changePasskey_p (const QString &oldPasskey, const QString &newPasskey) = 0;
+	virtual QString id_p () const = 0;
 	virtual QString name_p () const = 0;
 };
 

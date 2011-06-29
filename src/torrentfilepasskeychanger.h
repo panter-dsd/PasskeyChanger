@@ -43,6 +43,10 @@ private:
 	virtual bool restoreState_p (const QByteArray &state);
 	virtual bool isReady_p () const;
 	virtual bool changePasskey_p (const QString &oldPasskey, const QString &newPasskey);
+	virtual QString id_p () const {
+		return "TorrentFilePasskeyChanger";
+	}
+
 	virtual QString name_p () const {
 		return tr ("Torrent file changer");
 	}
