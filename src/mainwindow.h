@@ -26,6 +26,8 @@ namespace Ui
 class MainWindow;
 }
 
+class AbstractPasskeyChanger;
+
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -37,12 +39,17 @@ public:
 protected:
 	void changeEvent (QEvent *e);
 
+private:
+	void initAbstractPasskeyChangers ();
+	void initSettingWidgets ();
+
 private Q_SLOTS:
-	void setPathToTorrents ();
 	void start ();
 
 private:
 	Ui::MainWindow *ui_;
+	typedef QVector <AbstractPasskeyChanger*> AbstractPasskeyChangers;
+	AbstractPasskeyChangers abstractPasskeyChangers_;
 };
 
 #endif // MAINWINDOW_H
