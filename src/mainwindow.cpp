@@ -17,6 +17,7 @@
 */
 
 #include <QtCore/QDebug>
+#include <QtCore/QSettings>
 
 #include <QtGui/QProgressDialog>
 #include <QtGui/QMessageBox>
@@ -119,3 +120,28 @@ void MainWindow::start ()
 		*/
 }
 
+void MainWindow::loadSettings()
+{
+	QSettings settings;
+	settings.beginGroup ("PLUGINS");
+
+	for (AbstractPasskeyChangers::const_iterator it = abstractPasskeyChangers_.constBegin (),
+			end = abstractPasskeyChangers_.constEnd(); it != end; ++it) {
+		(*it)->restoreState (settings.value ( (*it)->id()).toByteArray());
+	}
+
+	settings.endGroup();
+}
+
+void MainWindow::saveSettings() const
+{
+	QSettings settings;
+	settings.beginGroup ("PLUGINS");
+
+	for (AbstractPasskeyChangers::const_iterator it = abstractPasskeyChangers_.constBegin (),
+			end = abstractPasskeyChangers_.constEnd(); it != end; ++it) {
+		settings.setValue ( (*it)->id(), (*it)->saveState());
+	}
+
+	settings.endGroup();
+}

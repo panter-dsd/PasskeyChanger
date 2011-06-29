@@ -43,6 +43,9 @@ private:
 	void initAbstractPasskeyChangers ();
 	void initSettingWidgets ();
 
+	void loadSettings ();
+	void saveSettings () const;
+
 private Q_SLOTS:
 	void start ();
 
