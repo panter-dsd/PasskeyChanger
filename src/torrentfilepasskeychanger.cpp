@@ -17,6 +17,7 @@
 */
 
 #include <QtCore/QDebug>
+#include <QtCore/QDataStream>
 
 #include <QtGui/QWidget>
 #include <QtGui/QLabel>
@@ -59,12 +60,25 @@ QWidget *TorrentFilePasskeyChanger::settingsWidget_p () const
 
 QByteArray TorrentFilePasskeyChanger::saveState_p () const
 {
+	QByteArray state;
+	QDataStream stream (&state, QIODevice::WriteOnly);
+	stream << defaultDir_;
 
+	return state;
 }
 
 bool TorrentFilePasskeyChanger::restoreState_p (const QByteArray &state)
 {
+	QDataStream stream (state);
 
+	QString path;
+	stream >> path;
+
+	if (!path.isEmpty()) {
+		defaultDir_ = path;
+	}
+
+	return !path.isEmpty ();
 }
 
 bool TorrentFilePasskeyChanger::isReady_p () const
