@@ -61,6 +61,7 @@ private:
 	AbstractPasskeyChanger (const AbstractPasskeyChanger &other);
 	AbstractPasskeyChanger &operator= (const AbstractPasskeyChanger &other);
 
+private:
 	virtual const QWidget *settingsWidget_p () const = 0;
 	virtual QByteArray saveState_p () const = 0;
 	virtual bool restoreState_p (const QByteArray &state) = 0;

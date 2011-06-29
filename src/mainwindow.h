@@ -23,7 +23,7 @@
 
 namespace Ui
 {
-	class MainWindow;
+class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -35,7 +35,7 @@ public:
 	virtual ~MainWindow ();
 
 protected:
-	void changeEvent (QEvent* e);
+	void changeEvent (QEvent *e);
 
 private Q_SLOTS:
 	void setPathToTorrents ();

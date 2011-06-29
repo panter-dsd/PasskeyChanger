@@ -31,7 +31,7 @@ const QString defaultPath = QDir::homePath () + "/.local/share/data/qBittorrent/
 #endif
 
 MainWindow::MainWindow (QWidget *parent)
-		: QMainWindow (parent), ui_ (new Ui::MainWindow)
+	: QMainWindow (parent), ui_ (new Ui::MainWindow)
 {
 	ui_->setupUi (this);
 
@@ -49,7 +49,7 @@ MainWindow::~MainWindow ()
 {
 }
 
-void MainWindow::changeEvent (QEvent* e)
+void MainWindow::changeEvent (QEvent *e)
 {
 	QMainWindow::changeEvent (e);
 
