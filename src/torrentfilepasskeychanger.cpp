@@ -39,7 +39,7 @@ TorrentFilePasskeyChanger::TorrentFilePasskeyChanger (QObject *parent)
 
 	pathButton_ = new QToolButton (settingsWidget_);
 	pathButton_->setText ("...");
-	connect (pathButton_, SIGNAL (clicked(bool)), SLOT (getFilePath()));
+	connect (pathButton_, SIGNAL (clicked (bool)), SLOT (getFilePath()));
 
 	QHBoxLayout *layout = new QHBoxLayout ();
 	layout->addWidget (pathLabel_);
@@ -88,15 +88,40 @@ bool TorrentFilePasskeyChanger::isReady_p () const
 
 bool TorrentFilePasskeyChanger::changePasskey_p (const QString &oldPasskey, const QString &newPasskey)
 {
+	const QString fileName = pathEdit_->text ();
 
+	if (fileName.isEmpty () || !QFile::exists (fileName)
+			|| oldPasskey.isEmpty() || newPasskey.isEmpty()
+			|| oldPasskey.size () != newPasskey.size ()) {
+		return false;
+	}
+
+	const QByteArray oldPasskey_ = oldPasskey.toUtf8();
+
+	const QByteArray newPasskey_ = newPasskey.toUtf8();
+
+	QFile file (fileName);
+
+	if (!file.open (QIODevice::ReadWrite)) {
+		return false;
+	}
+
+	QByteArray data = file.readAll ();
+	data.replace (oldPasskey_, newPasskey_);
+	file.seek (0);
+	file.write (data);
+	file.close();
+
+	return true;
 }
 
 void TorrentFilePasskeyChanger::getFilePath ()
 {
 	const QString fileName = QFileDialog::getOpenFileName (settingsWidget_,
-														   tr ("Open torrent file"),
-														   defaultDir_,
-														   tr ("Torrent files (*.torrent)"));
+							 tr ("Open torrent file"),
+							 defaultDir_,
+							 tr ("Torrent files (*.torrent)"));
+
 	if (!fileName.isEmpty ()) {
 		pathEdit_->setText (fileName);
 		defaultDir_ = QDir (fileName).absolutePath ();
