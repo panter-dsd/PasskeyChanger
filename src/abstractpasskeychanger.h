@@ -53,6 +53,10 @@ public:
 			   && changePasskey_p (oldPasskey, newPasskey);
 	}
 
+	QString name () const {
+		return name_p ();
+	}
+
 Q_SIGNALS:
 	void stateChanged (bool isReady);
 	void configurationComplete ();
@@ -67,6 +71,7 @@ private:
 	virtual bool restoreState_p (const QByteArray &state) = 0;
 	virtual bool isReady_p () const = 0;
 	virtual bool changePasskey_p (const QString &oldPasskey, const QString &newPasskey) = 0;
+	virtual QString name_p () const = 0;
 };
 
 #endif // ABSTRACTPASSKEYCHANGER_H
