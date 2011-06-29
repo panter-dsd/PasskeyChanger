@@ -51,6 +51,8 @@ private Q_SLOTS:
 	void getFilePath ();
 
 private:
+	QString defaultDir_;
+
 	QWidget *settingsWidget_;
 	QLabel *pathLabel_;
 	QLineEdit *pathEdit_;

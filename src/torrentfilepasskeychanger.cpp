@@ -28,7 +28,7 @@
 #include "torrentfilepasskeychanger.h"
 
 TorrentFilePasskeyChanger::TorrentFilePasskeyChanger (QObject *parent)
-	: AbstractPasskeyChanger (parent)
+	: AbstractPasskeyChanger (parent), defaultDir_ (QDir::homePath ())
 {
 	settingsWidget_ = new QWidget ();
 
@@ -81,9 +81,10 @@ void TorrentFilePasskeyChanger::getFilePath ()
 {
 	const QString fileName = QFileDialog::getOpenFileName (settingsWidget_,
 														   tr ("Open torrent file"),
-														   QDir (pathEdit_->text()).absolutePath (),
+														   defaultDir_,
 														   tr ("Torrent files (*.torrent)"));
 	if (!fileName.isEmpty ()) {
 		pathEdit_->setText (fileName);
+		defaultDir_ = QDir (fileName).absolutePath ();
 	}
 }
