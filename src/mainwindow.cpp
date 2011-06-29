@@ -41,10 +41,13 @@ MainWindow::MainWindow (QWidget *parent)
 
 	connect (ui_->startButton_, SIGNAL (clicked()),
 			 this, SLOT (start()));
+
+	loadSettings ();
 }
 
 MainWindow::~MainWindow ()
 {
+	saveSettings ();
 }
 
 void MainWindow::changeEvent (QEvent *e)
