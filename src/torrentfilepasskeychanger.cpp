@@ -143,6 +143,12 @@ void TorrentFilePasskeyChanger::getFilePath ()
 
 	if (!fileName.isEmpty ()) {
 		pathEdit_->setText (fileName);
-		defaultDir_ = QDir (fileName).absolutePath ();
+		defaultDir_ = QFileInfo (fileName).absolutePath ();
+
+		const bool isReady_ = isReady ();
+		emit stateChanged (isReady_);
+		if (isReady_) {
+			emit configurationComplete ();
+		}
 	}
 }
