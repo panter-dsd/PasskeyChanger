@@ -49,9 +49,9 @@ TorrentFilePasskeyChanger::TorrentFilePasskeyChanger (QObject *parent)
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addLayout (layout);
 	mainLayout->addSpacerItem (new QSpacerItem (0,
-		0,
-		QSizePolicy::Preferred,
-		QSizePolicy::Expanding));
+							   0,
+							   QSizePolicy::Preferred,
+							   QSizePolicy::Expanding));
 	settingsWidget_->setLayout (mainLayout);
 }
 
@@ -90,7 +90,9 @@ bool TorrentFilePasskeyChanger::restoreState_p (const QByteArray &state)
 
 bool TorrentFilePasskeyChanger::isReady_p () const
 {
+	const QString fileName = pathEdit_->text ();
 
+	return !fileName.isEmpty () && QFile::exists (fileName);
 }
 
 bool TorrentFilePasskeyChanger::changeFilePasskey (const QString &fileName,
