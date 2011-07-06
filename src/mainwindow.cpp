@@ -143,6 +143,13 @@ void MainWindow::loadSettings()
 	}
 
 	settings.endGroup();
+
+	settings.beginGroup ("GLOBAL");
+
+	ui_->oldPasskeyEdit_->setText (settings.value ("OldPaskey").toString ());
+	ui_->newPasskeyEdit_->setText (settings.value ("NewPaskey").toString ());
+
+	settings.endGroup();
 }
 
 void MainWindow::saveSettings() const
@@ -154,6 +161,13 @@ void MainWindow::saveSettings() const
 			end = abstractPasskeyChangers_.constEnd(); it != end; ++it) {
 		settings.setValue ( (*it)->id(), (*it)->saveState());
 	}
+
+	settings.endGroup();
+
+	settings.beginGroup ("GLOBAL");
+
+	settings.setValue ("OldPaskey", ui_->oldPasskeyEdit_->text ());
+	settings.setValue ("NewPaskey", ui_->newPasskeyEdit_->text ());
 
 	settings.endGroup();
 }
