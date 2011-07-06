@@ -33,14 +33,23 @@
 #endif
 
 MainWindow::MainWindow (QWidget *parent)
-	: QMainWindow (parent), ui_ (new Ui::MainWindow)
+	: QMainWindow (parent), ui_ (new Ui::MainWindow), currentChanger_ (0)
 {
 	ui_->setupUi (this);
+
+	connect (ui_->pluginsComboBox,
+			 SIGNAL (currentIndexChanged (int)),
+			 SLOT (pageChanged (int)));
+	connect (ui_->oldPasskeyEdit_,
+			 SIGNAL (textChanged (QString)),
+			 SLOT (passkeyTextChanged (QString)));
+	connect (ui_->newPasskeyEdit_,
+			 SIGNAL (textChanged (QString)),
+			 SLOT (passkeyTextChanged (QString)));
+	connect (ui_->startButton_, SIGNAL (clicked()), SLOT (start()));
+
 	initAbstractPasskeyChangers ();
 	initSettingWidgets ();
-
-	connect (ui_->startButton_, SIGNAL (clicked()),
-			 this, SLOT (start()));
 
 	loadSettings ();
 }
@@ -147,4 +156,71 @@ void MainWindow::saveSettings() const
 	}
 
 	settings.endGroup();
+}
+
+void MainWindow::connectPasskeyChanger (AbstractPasskeyChanger *passkeyChanger)
+{
+	Q_ASSERT (passkeyChanger);
+
+	connect (passkeyChanger,
+			 SIGNAL (stateChanged (bool)),
+			 SLOT (stateChanged (bool)));
+	connect (passkeyChanger,
+			 SIGNAL (configurationComplete()),
+			 SLOT (configurationComplete()));
+}
+
+void MainWindow::disconnectPasskeyChanger (AbstractPasskeyChanger *passkeyChanger) const
+{
+	Q_ASSERT (passkeyChanger);
+
+	disconnect (passkeyChanger,
+				SIGNAL (stateChanged (bool)),
+				this,
+				SLOT (stateChanged (bool)));
+	disconnect (passkeyChanger,
+				SIGNAL (configurationComplete()),
+				this,
+				SLOT (configurationComplete()));
+}
+
+void MainWindow::pageChanged (int pageNumber)
+{
+	if (pageNumber < 0 || pageNumber > abstractPasskeyChangers_.size ()) {
+		return;
+	}
+
+	AbstractPasskeyChanger *changer = abstractPasskeyChangers_ [pageNumber];
+
+	if (currentChanger_) {
+		disconnectPasskeyChanger (currentChanger_);
+	}
+
+	ui_->startButton_->setEnabled (changer && changer->isReady ());
+	currentChanger_ = changer;
+
+	if (currentChanger_) {
+		connectPasskeyChanger (currentChanger_);
+	}
+}
+
+void MainWindow::stateChanged (bool isReady)
+{
+	const QString &oldPasskey = ui_->oldPasskeyEdit_->text ();
+	const QString &newPasskey = ui_->newPasskeyEdit_->text ();
+
+	ui_->startButton_->setEnabled (isReady
+								   && !oldPasskey.isEmpty()
+								   && !newPasskey.isEmpty()
+								   && oldPasskey.size() == newPasskey.size());
+}
+
+void MainWindow::configurationComplete ()
+{
+
+}
+
+void MainWindow::passkeyTextChanged (const QString &text)
+{
+	stateChanged (currentChanger_ && currentChanger_->isReady());
 }

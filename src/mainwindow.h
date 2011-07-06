@@ -46,13 +46,23 @@ private:
 	void loadSettings ();
 	void saveSettings () const;
 
+	void connectPasskeyChanger (AbstractPasskeyChanger *passkeyChanger);
+	void disconnectPasskeyChanger (AbstractPasskeyChanger *passkeyChanger) const;
+
 private Q_SLOTS:
 	void start ();
+	void pageChanged (int pageNumber);
+
+	void stateChanged (bool isReady);
+	void configurationComplete ();
+
+	void passkeyTextChanged (const QString &text);
 
 private:
 	Ui::MainWindow *ui_;
 	typedef QVector <AbstractPasskeyChanger*> AbstractPasskeyChangers;
 	AbstractPasskeyChangers abstractPasskeyChangers_;
+	AbstractPasskeyChanger *currentChanger_;
 };
 
 #endif // MAINWINDOW_H
