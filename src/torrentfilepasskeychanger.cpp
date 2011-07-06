@@ -36,6 +36,7 @@ TorrentFilePasskeyChanger::TorrentFilePasskeyChanger (QObject *parent)
 	pathLabel_ = new QLabel (tr ("Path to torrent file"), settingsWidget_);
 
 	pathEdit_ = new QLineEdit (settingsWidget_);
+	pathEdit_->setReadOnly (true);
 
 	pathButton_ = new QToolButton (settingsWidget_);
 	pathButton_->setText ("...");
@@ -147,6 +148,7 @@ void TorrentFilePasskeyChanger::getFilePath ()
 
 		const bool isReady_ = isReady ();
 		emit stateChanged (isReady_);
+
 		if (isReady_) {
 			emit configurationComplete ();
 		}
