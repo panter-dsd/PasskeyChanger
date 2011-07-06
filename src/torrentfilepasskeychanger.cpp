@@ -93,18 +93,15 @@ bool TorrentFilePasskeyChanger::isReady_p () const
 
 }
 
-bool TorrentFilePasskeyChanger::changePasskey_p (const QString &oldPasskey, const QString &newPasskey)
+bool TorrentFilePasskeyChanger::changeFilePasskey (const QString &fileName,
+		const QString &oldPasskey,
+		const QString &newPasskey)
 {
-	const QString fileName = pathEdit_->text ();
-
-	if (fileName.isEmpty () || !QFile::exists (fileName)
-			|| oldPasskey.isEmpty() || newPasskey.isEmpty()
-			|| oldPasskey.size () != newPasskey.size ()) {
-		return false;
-	}
+	Q_ASSERT (!fileName.isEmpty ()
+			  && !oldPasskey.isEmpty()
+			  && !newPasskey.isEmpty());
 
 	const QByteArray oldPasskey_ = oldPasskey.toUtf8();
-
 	const QByteArray newPasskey_ = newPasskey.toUtf8();
 
 	QFile file (fileName);
@@ -120,6 +117,19 @@ bool TorrentFilePasskeyChanger::changePasskey_p (const QString &oldPasskey, cons
 	file.close();
 
 	return true;
+}
+
+bool TorrentFilePasskeyChanger::changePasskey_p (const QString &oldPasskey, const QString &newPasskey)
+{
+	const QString fileName = pathEdit_->text ();
+
+	if (fileName.isEmpty () || !QFile::exists (fileName)
+			|| oldPasskey.isEmpty() || newPasskey.isEmpty()
+			|| oldPasskey.size () != newPasskey.size ()) {
+		return false;
+	}
+
+	return changeFilePasskey (fileName, oldPasskey, newPasskey);
 }
 
 void TorrentFilePasskeyChanger::getFilePath ()

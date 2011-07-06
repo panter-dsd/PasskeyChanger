@@ -33,6 +33,11 @@ public:
 	TorrentFilePasskeyChanger (QObject *parent = 0);
 	virtual ~TorrentFilePasskeyChanger();
 
+protected:
+	bool changeFilePasskey (const QString &fileName,
+							const QString &oldPasskey,
+							const QString &newPasskey);
+
 private:
 	TorrentFilePasskeyChanger (const TorrentFilePasskeyChanger &other);
 	TorrentFilePasskeyChanger &operator= (const TorrentFilePasskeyChanger &other);
