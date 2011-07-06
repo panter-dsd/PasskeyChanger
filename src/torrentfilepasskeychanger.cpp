@@ -45,7 +45,14 @@ TorrentFilePasskeyChanger::TorrentFilePasskeyChanger (QObject *parent)
 	layout->addWidget (pathLabel_);
 	layout->addWidget (pathEdit_);
 	layout->addWidget (pathButton_);
-	settingsWidget_->setLayout (layout);
+
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	mainLayout->addLayout (layout);
+	mainLayout->addSpacerItem (new QSpacerItem (0,
+		0,
+		QSizePolicy::Preferred,
+		QSizePolicy::Expanding));
+	settingsWidget_->setLayout (mainLayout);
 }
 
 TorrentFilePasskeyChanger::~TorrentFilePasskeyChanger()
