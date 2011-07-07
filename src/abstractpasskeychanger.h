@@ -28,7 +28,9 @@ class AbstractPasskeyChanger : public QObject
 	Q_OBJECT
 
 public:
-	explicit AbstractPasskeyChanger (QObject *parent = 0) : QObject (parent) {}
+	explicit AbstractPasskeyChanger (QObject *parent = 0)
+	: QObject (parent), isCreateBackups_ (true)
+	{}
 	virtual ~AbstractPasskeyChanger() {}
 
 	QWidget *settingsWidget () const {
@@ -61,6 +63,14 @@ public:
 		return name_p ();
 	}
 
+	bool isCreateBackups () const {
+		return isCreateBackups_;
+	}
+
+	void setCreateBackups (bool value) {
+		isCreateBackups_ = value;
+	}
+
 Q_SIGNALS:
 	void stateChanged (bool isReady);
 	void configurationComplete ();
@@ -77,6 +87,9 @@ private:
 	virtual bool changePasskey_p (const QString &oldPasskey, const QString &newPasskey) = 0;
 	virtual QString id_p () const = 0;
 	virtual QString name_p () const = 0;
+
+protected:
+	bool isCreateBackups_;
 };
 
 #endif // ABSTRACTPASSKEYCHANGER_H
