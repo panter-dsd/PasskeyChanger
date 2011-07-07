@@ -55,7 +55,7 @@ private:
 	}
 
 	virtual QString name_p () const {
-		return tr ("Torrent file changer");
+		return tr ("Torrent file");
 	}
 
 private Q_SLOTS:
