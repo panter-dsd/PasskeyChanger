@@ -88,7 +88,7 @@ private:
 	virtual QString id_p () const = 0;
 	virtual QString name_p () const = 0;
 
-protected:
+private:
 	bool isCreateBackups_;
 };
 
