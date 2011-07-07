@@ -19,6 +19,8 @@
 #ifndef TORRENTDIRPASSKEYCHANGER_H
 #define TORRENTDIRPASSKEYCHANGER_H
 
+#include <QtCore/QStringList>
+
 #include "torrentfilepasskeychanger.h"
 
 class QLabel;
@@ -50,6 +52,9 @@ private:
 
 private Q_SLOTS:
 	virtual void getFilePath ();
+
+protected:
+	QStringList fileMask_;
 };
 
 #endif // TORRENTDIRPASSKEYCHANGER_H

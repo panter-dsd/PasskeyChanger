@@ -32,6 +32,8 @@ TorrentDirPasskeyChanger::TorrentDirPasskeyChanger (QObject *parent)
 	: TorrentFilePasskeyChanger (parent)
 {
 	pathLabel_->setText (tr ("Dir with torrent file"));
+
+	fileMask_ << "*.torrent";
 }
 
 TorrentDirPasskeyChanger::~TorrentDirPasskeyChanger()
