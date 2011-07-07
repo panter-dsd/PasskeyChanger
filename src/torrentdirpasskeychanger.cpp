@@ -29,32 +29,9 @@
 #include "torrentdirpasskeychanger.h"
 
 TorrentDirPasskeyChanger::TorrentDirPasskeyChanger (QObject *parent)
-	: TorrentFilePasskeyChanger (parent), defaultDir_ (QDir::homePath ())
+	: TorrentFilePasskeyChanger (parent)
 {
-	settingsWidget_ = new QWidget ();
-
-	pathLabel_ = new QLabel (tr ("Dir with torrent file"), settingsWidget_);
-
-	pathEdit_ = new QLineEdit (settingsWidget_);
-	pathEdit_->setReadOnly (true);
-
-	pathButton_ = new QToolButton (settingsWidget_);
-	pathButton_->setText ("...");
-	connect (pathButton_, SIGNAL (clicked (bool)), SLOT (getFilePath()));
-
-	QHBoxLayout *layout = new QHBoxLayout ();
-	layout->addWidget (pathLabel_);
-	layout->addWidget (pathEdit_);
-	layout->addWidget (pathButton_);
-
-	QVBoxLayout *mainLayout = new QVBoxLayout;
-	mainLayout->setMargin (0);
-	mainLayout->addLayout (layout);
-	mainLayout->addSpacerItem (new QSpacerItem (0,
-							   0,
-							   QSizePolicy::Preferred,
-							   QSizePolicy::Expanding));
-	settingsWidget_->setLayout (mainLayout);
+	pathLabel_->setText (tr ("Dir with torrent file"));
 }
 
 TorrentDirPasskeyChanger::~TorrentDirPasskeyChanger()
@@ -62,69 +39,11 @@ TorrentDirPasskeyChanger::~TorrentDirPasskeyChanger()
 
 }
 
-QWidget *TorrentDirPasskeyChanger::settingsWidget_p () const
-{
-	return settingsWidget_;
-}
-
-QByteArray TorrentDirPasskeyChanger::saveState_p () const
-{
-	QByteArray state;
-	QDataStream stream (&state, QIODevice::WriteOnly);
-	stream << defaultDir_;
-
-	return state;
-}
-
-bool TorrentDirPasskeyChanger::restoreState_p (const QByteArray &state)
-{
-	QDataStream stream (state);
-
-	QString path;
-	stream >> path;
-
-	if (!path.isEmpty()) {
-		defaultDir_ = path;
-	}
-
-	return !path.isEmpty ();
-}
-
 bool TorrentDirPasskeyChanger::isReady_p () const
 {
 	const QString fileName = pathEdit_->text ();
 
 	return !fileName.isEmpty () && QFile::exists (fileName);
-}
-
-bool TorrentDirPasskeyChanger::changeFilePasskey (const QString &fileName,
-		const QString &oldPasskey,
-		const QString &newPasskey)
-{
-	Q_ASSERT (!fileName.isEmpty ()
-			  && !oldPasskey.isEmpty()
-			  && !newPasskey.isEmpty());
-
-	const QByteArray oldPasskey_ = oldPasskey.toUtf8();
-	const QByteArray newPasskey_ = newPasskey.toUtf8();
-
-	if (isCreateBackups ()) {
-		backupFile (fileName);
-	}
-
-	QFile file (fileName);
-
-	if (!file.open (QIODevice::ReadWrite)) {
-		return false;
-	}
-
-	QByteArray data = file.readAll ();
-	data.replace (oldPasskey_, newPasskey_);
-	file.seek (0);
-	file.write (data);
-	file.close();
-
-	return true;
 }
 
 bool TorrentDirPasskeyChanger::changePasskey_p (const QString &oldPasskey, const QString &newPasskey)
@@ -142,14 +61,13 @@ bool TorrentDirPasskeyChanger::changePasskey_p (const QString &oldPasskey, const
 
 void TorrentDirPasskeyChanger::getFilePath ()
 {
-	const QString fileName = QFileDialog::getOpenFileName (settingsWidget_,
-							 tr ("Open torrent file"),
-							 defaultDir_,
-							 tr ("Torrent files (*.torrent)"));
+	const QString fileName = QFileDialog::getExistingDirectory (settingsWidget_,
+							 tr ("Dir with torrents"),
+							 defaultDir_);
 
 	if (!fileName.isEmpty ()) {
 		pathEdit_->setText (fileName);
-		defaultDir_ = QFileInfo (fileName).absolutePath ();
+		defaultDir_ = fileName;
 
 		const bool isReady_ = isReady ();
 		emit stateChanged (isReady_);
@@ -160,7 +78,3 @@ void TorrentDirPasskeyChanger::getFilePath ()
 	}
 }
 
-void TorrentDirPasskeyChanger::backupFile (const QString &fileName) const
-{
-	QFile::copy (fileName, fileName + "~");
-}

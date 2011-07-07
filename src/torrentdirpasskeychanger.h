@@ -33,21 +33,11 @@ public:
 	TorrentDirPasskeyChanger (QObject *parent = 0);
 	virtual ~TorrentDirPasskeyChanger();
 
-protected:
-	bool changeFilePasskey (const QString &fileName,
-							const QString &oldPasskey,
-							const QString &newPasskey);
-
 private:
 	TorrentDirPasskeyChanger (const TorrentDirPasskeyChanger &other);
 	TorrentDirPasskeyChanger &operator= (const TorrentDirPasskeyChanger &other);
 
-	void backupFile (const QString &fileName) const;
-
 private:
-	virtual QWidget *settingsWidget_p () const;
-	virtual QByteArray saveState_p () const;
-	virtual bool restoreState_p (const QByteArray &state);
 	virtual bool isReady_p () const;
 	virtual bool changePasskey_p (const QString &oldPasskey, const QString &newPasskey);
 	virtual QString id_p () const {
@@ -59,15 +49,7 @@ private:
 	}
 
 private Q_SLOTS:
-	void getFilePath ();
-
-private:
-	QString defaultDir_;
-
-	QWidget *settingsWidget_;
-	QLabel *pathLabel_;
-	QLineEdit *pathEdit_;
-	QToolButton *pathButton_;
+	virtual void getFilePath ();
 };
 
 #endif // TORRENTDIRPASSKEYCHANGER_H
