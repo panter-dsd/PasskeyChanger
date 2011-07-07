@@ -218,6 +218,7 @@ void MainWindow::pageChanged (int pageNumber)
 
 	if (currentChanger_) {
 		connectPasskeyChanger (currentChanger_);
+		currentChanger_->setCreateBackups (ui_->createBackupsEdit_->isChecked ());
 	}
 }
 
