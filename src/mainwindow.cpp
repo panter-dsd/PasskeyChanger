@@ -92,44 +92,11 @@ void MainWindow::initSettingWidgets ()
 
 void MainWindow::start ()
 {
-	/*	const QString path = ui_->pathToTorrentsEdit_->text ();
-		const QByteArray oldPasskey = ui_->oldPasskeyEdit_->text ().toUtf8();
-		const QByteArray newPasskey = ui_->newPasskeyEdit_->text ().toUtf8();
+	q_check_ptr (currentChanger_);
 
-		if (path.isEmpty () || oldPasskey.isEmpty() || newPasskey.isEmpty()) {
-			return;
-		}
-
-		QDir dir (path);
-
-		if (!dir.exists ()) {
-			return;
-		}
-
-		const QStringList list = dir.entryList (QDir::Files);
-
-		QProgressDialog d (this);
-
-		d.setRange (0, list.size ());
-
-		for (QStringList::const_iterator it = list.constBegin(),
-				end = list.constEnd (); it != end; ++it) {
-			d.setValue (d.value() + 1);
-			QFile file (dir.absoluteFilePath (*it));
-
-			if (!file.open (QIODevice::ReadWrite)) {
-				continue;
-			}
-
-			QByteArray data = file.readAll ();
-			data.replace (oldPasskey, newPasskey);
-			file.seek (0);
-			file.write (data);
-			file.close();
-		}
-
-		QMessageBox::information (this, "", tr ("Complite"));
-		*/
+	const bool result = currentChanger_->changePasskey (ui_->oldPasskeyEdit_->text (),
+														ui_->newPasskeyEdit_->text ());
+	QMessageBox::information (this, "", result ? tr ("Complite") : tr ("Error"));
 }
 
 void MainWindow::loadSettings()
