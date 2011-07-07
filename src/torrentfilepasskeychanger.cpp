@@ -108,6 +108,10 @@ bool TorrentFilePasskeyChanger::changeFilePasskey (const QString &fileName,
 	const QByteArray oldPasskey_ = oldPasskey.toUtf8();
 	const QByteArray newPasskey_ = newPasskey.toUtf8();
 
+	if (isCreateBackups ()) {
+		backupFile (fileName);
+	}
+
 	QFile file (fileName);
 
 	if (!file.open (QIODevice::ReadWrite)) {
@@ -154,4 +158,9 @@ void TorrentFilePasskeyChanger::getFilePath ()
 			emit configurationComplete ();
 		}
 	}
+}
+
+void TorrentFilePasskeyChanger::backupFile (const QString &fileName) const
+{
+	QFile::copy (fileName, fileName + "~");
 }

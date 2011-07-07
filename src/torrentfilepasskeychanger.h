@@ -42,6 +42,8 @@ private:
 	TorrentFilePasskeyChanger (const TorrentFilePasskeyChanger &other);
 	TorrentFilePasskeyChanger &operator= (const TorrentFilePasskeyChanger &other);
 
+	void backupFile (const QString &fileName) const;
+
 private:
 	virtual QWidget *settingsWidget_p () const;
 	virtual QByteArray saveState_p () const;
