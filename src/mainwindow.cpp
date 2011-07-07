@@ -24,6 +24,7 @@
 
 #include "abstractpasskeychanger.h"
 #include "torrentfilepasskeychanger.h"
+#include "torrentdirpasskeychanger.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -80,6 +81,7 @@ void MainWindow::changeEvent (QEvent *e)
 void MainWindow::initAbstractPasskeyChangers ()
 {
 	abstractPasskeyChangers_.push_back (new TorrentFilePasskeyChanger (this));
+	abstractPasskeyChangers_.push_back (new TorrentDirPasskeyChanger (this));
 }
 
 void MainWindow::initSettingWidgets ()

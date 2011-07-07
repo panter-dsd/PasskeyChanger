@@ -21,12 +21,14 @@ set (src_SRC
 src/main.cpp
 src/mainwindow.cpp
 src/torrentfilepasskeychanger.cpp
+src/torrentdirpasskeychanger.cpp
 )
 
 set (src_HEADERS
 src/mainwindow.h
 src/abstractpasskeychanger.h
 src/torrentfilepasskeychanger.h
+src/torrentdirpasskeychanger.h
 )
 
 set (src_UI
