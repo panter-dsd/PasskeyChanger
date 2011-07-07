@@ -33,7 +33,7 @@ TorrentDirPasskeyChanger::TorrentDirPasskeyChanger (QObject *parent)
 {
 	settingsWidget_ = new QWidget ();
 
-	pathLabel_ = new QLabel (tr ("Path to torrent file"), settingsWidget_);
+	pathLabel_ = new QLabel (tr ("Dir with torrent file"), settingsWidget_);
 
 	pathEdit_ = new QLineEdit (settingsWidget_);
 	pathEdit_->setReadOnly (true);
