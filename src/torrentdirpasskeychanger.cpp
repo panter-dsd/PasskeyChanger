@@ -51,15 +51,22 @@ bool TorrentDirPasskeyChanger::isReady_p () const
 
 bool TorrentDirPasskeyChanger::changePasskey_p (const QString &oldPasskey, const QString &newPasskey)
 {
-	const QString fileName = pathEdit_->text ();
+	const QString path = pathEdit_->text ();
 
-	if (fileName.isEmpty () || !QFile::exists (fileName)
+	if (path.isEmpty () || !QFile::exists (path)
 			|| oldPasskey.isEmpty() || newPasskey.isEmpty()
 			|| oldPasskey.size () != newPasskey.size ()) {
 		return false;
 	}
 
-	return changeFilePasskey (fileName, oldPasskey, newPasskey);
+	foreach (const QFileInfo &fi,
+		QDir (path).entryInfoList (fileMask_, QDir::Files)) {
+		if (!changeFilePasskey (fi.absoluteFilePath(), oldPasskey, newPasskey)) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 void TorrentDirPasskeyChanger::getFilePath ()
