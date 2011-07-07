@@ -17,13 +17,9 @@
 */
 
 #include <QtCore/QDebug>
-#include <QtCore/QDataStream>
 
-#include <QtGui/QWidget>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
-#include <QtGui/QToolButton>
-#include <QtGui/QHBoxLayout>
 #include <QtGui/QFileDialog>
 
 #include "torrentdirpasskeychanger.h"
@@ -34,11 +30,6 @@ TorrentDirPasskeyChanger::TorrentDirPasskeyChanger (QObject *parent)
 	pathLabel_->setText (tr ("Dir with torrent file"));
 
 	fileMask_ << "*.torrent";
-}
-
-TorrentDirPasskeyChanger::~TorrentDirPasskeyChanger()
-{
-
 }
 
 bool TorrentDirPasskeyChanger::isReady_p () const

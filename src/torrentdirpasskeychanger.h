@@ -23,21 +23,13 @@
 
 #include "torrentfilepasskeychanger.h"
 
-class QLabel;
-class QLineEdit;
-class QToolButton;
-
 class TorrentDirPasskeyChanger : public TorrentFilePasskeyChanger
 {
 	Q_OBJECT
 
 public:
 	TorrentDirPasskeyChanger (QObject *parent = 0);
-	virtual ~TorrentDirPasskeyChanger();
-
-private:
-	TorrentDirPasskeyChanger (const TorrentDirPasskeyChanger &other);
-	TorrentDirPasskeyChanger &operator= (const TorrentDirPasskeyChanger &other);
+	virtual ~TorrentDirPasskeyChanger() {}
 
 private:
 	virtual bool isReady_p () const;
