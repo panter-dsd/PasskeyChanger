@@ -46,6 +46,9 @@ MainWindow::MainWindow (QWidget *parent)
 	connect (ui_->newPasskeyEdit_,
 			 SIGNAL (textChanged (QString)),
 			 SLOT (passkeyTextChanged (QString)));
+	connect (ui_->createBackupsEdit_,
+			 SIGNAL (stateChanged(int)),
+			 SLOT (createBackupChanged(int)));
 	connect (ui_->startButton_, SIGNAL (clicked()), SLOT (start()));
 
 	initAbstractPasskeyChangers ();
@@ -208,4 +211,11 @@ void MainWindow::configurationComplete ()
 void MainWindow::passkeyTextChanged (const QString &text)
 {
 	stateChanged (currentChanger_ && currentChanger_->isReady());
+}
+
+void MainWindow::createBackupChanged (int value)
+{
+	if (currentChanger_) {
+		currentChanger_->setCreateBackups (value == Qt::Checked);
+	}
 }

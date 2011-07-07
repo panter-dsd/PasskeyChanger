@@ -58,6 +58,8 @@ private Q_SLOTS:
 
 	void passkeyTextChanged (const QString &text);
 
+	void createBackupChanged (int value);
+
 private:
 	Ui::MainWindow *ui_;
 	typedef QVector <AbstractPasskeyChanger*> AbstractPasskeyChangers;
