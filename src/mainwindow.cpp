@@ -148,6 +148,8 @@ void MainWindow::loadSettings()
 
 	ui_->oldPasskeyEdit_->setText (settings.value ("OldPaskey").toString ());
 	ui_->newPasskeyEdit_->setText (settings.value ("NewPaskey").toString ());
+	ui_->createBackupsEdit_->setCheckState (settings.value ("CreateBackup", true).toBool()
+											? Qt::Checked : Qt::Unchecked);
 
 	settings.endGroup();
 }
@@ -168,6 +170,7 @@ void MainWindow::saveSettings() const
 
 	settings.setValue ("OldPaskey", ui_->oldPasskeyEdit_->text ());
 	settings.setValue ("NewPaskey", ui_->newPasskeyEdit_->text ());
+	settings.setValue ("CreateBackup", ui_->createBackupsEdit_->isChecked ());
 
 	settings.endGroup();
 }
