@@ -59,9 +59,9 @@ private:
 	}
 
 private Q_SLOTS:
-	void getFilePath ();
+	virtual void getFilePath ();
 
-private:
+protected:
 	QString defaultDir_;
 
 	QWidget *settingsWidget_;
