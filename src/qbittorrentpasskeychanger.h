@@ -24,6 +24,7 @@
 
 class QBittorrentPasskeyChanger : public TorrentDirPasskeyChanger
 {
+	Q_OBJECT
 
 public:
 	QBittorrentPasskeyChanger (QObject *parent = 0);
