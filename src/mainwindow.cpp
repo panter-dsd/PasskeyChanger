@@ -19,6 +19,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QSettings>
 #include <QtCore/QFile>
+#include <QtCore/QCoreApplication>
 
 #include <QtGui/QProgressDialog>
 #include <QtGui/QMessageBox>
@@ -51,6 +52,7 @@ MainWindow::MainWindow (QWidget *parent)
 			 SLOT (createBackupChanged (int)));
 	connect (ui_->startButton_, SIGNAL (clicked()), SLOT (start()));
 	connect (ui_->actionAbout, SIGNAL (triggered()), SLOT (about ()));
+	connect (ui_->actionAboutQt, SIGNAL (triggered()), qApp, SLOT (aboutQt()));
 
 	initAbstractPasskeyChangers ();
 	initSettingWidgets ();
