@@ -60,6 +60,8 @@ private Q_SLOTS:
 
 	void createBackupChanged (int value);
 
+	void about ();
+
 private:
 	Ui::MainWindow *ui_;
 	typedef QVector <AbstractPasskeyChanger*> AbstractPasskeyChangers;

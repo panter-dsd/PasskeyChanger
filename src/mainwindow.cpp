@@ -18,6 +18,7 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QSettings>
+#include <QtCore/QFile>
 
 #include <QtGui/QProgressDialog>
 #include <QtGui/QMessageBox>
@@ -26,6 +27,7 @@
 #include "torrentfilepasskeychanger.h"
 #include "torrentdirpasskeychanger.h"
 #include "qbittorrentpasskeychanger.h"
+#include "aboutdialog.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -48,6 +50,7 @@ MainWindow::MainWindow (QWidget *parent)
 			 SIGNAL (stateChanged(int)),
 			 SLOT (createBackupChanged(int)));
 	connect (ui_->startButton_, SIGNAL (clicked()), SLOT (start()));
+	connect (ui_->actionAbout, SIGNAL (triggered()), SLOT (about ()));
 
 	initAbstractPasskeyChangers ();
 	initSettingWidgets ();
@@ -218,4 +221,24 @@ void MainWindow::createBackupChanged (int value)
 	if (currentChanger_) {
 		currentChanger_->setCreateBackups (value == Qt::Checked);
 	}
+}
+
+void MainWindow::about ()
+{
+	AboutDialog d (this);
+
+	d.setAuthor(tr("PanteR"));
+	d.setMail("panter.dsd@gmail.com");
+	d.setPhone("89062440151");
+	d.setLicense("GNU GPL v3");
+
+	{
+		QFile file(":/LICENSE.GPL3");
+		if (file.open(QFile::ReadOnly)) {
+			d.setLicenseText(QString(file.readAll()));
+			file.close();
+		}
+	}
+
+	d.exec();
 }
