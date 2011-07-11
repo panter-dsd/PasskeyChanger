@@ -37,26 +37,33 @@ class AboutDialog : public QDialog
 	Q_OBJECT
 
 public:
-	AboutDialog(QWidget *parent = 0, Qt::WFlags f = Qt::WindowSystemMenuHint);
+	AboutDialog (QWidget *parent = 0, Qt::WFlags f = Qt::WindowSystemMenuHint);
 	virtual ~AboutDialog()
 	{}
 
-	void setLicenseText(const QString& text);
+	void setLicenseText (const QString &text);
 
-	void setAuthor(const QString& author)
-	{m_author = author; printCopyright();}
+	void setAuthor (const QString &author) {
+		m_author = author;
+		printCopyright();
+	}
 
-	void setMail(const QString& mail)
-	{m_mail = mail; printCopyright();}
+	void setMail (const QString &mail) {
+		m_mail = mail;
+		printCopyright();
+	}
 
-	void setPhone(const QString& phone)
-	{m_phone = phone; printCopyright();}
+	void setPhone (const QString &phone) {
+		m_phone = phone;
+		printCopyright();
+	}
 
-	void setLicense(const QString& license)
-	{m_license = license; printCopyright();}
+	void setLicense (const QString &license) {
+		m_license = license;
+		printCopyright();
+	}
 
-	void addThanks (const QString& name, const QString& email, const QString& typeWork)
-	{
+	void addThanks (const QString &name, const QString &email, const QString &typeWork) {
 		QStringList l;
 		l << name << email << typeWork;
 		m_thanks << l;
@@ -67,7 +74,7 @@ private:
 	void printCopyright();
 	void printThanks ();
 
-	private:
+private:
 	QLabel *iconLabel;
 	QLabel *aboutLabel;
 	QToolButton *closeButton;

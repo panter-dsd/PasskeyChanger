@@ -47,8 +47,8 @@ MainWindow::MainWindow (QWidget *parent)
 			 SIGNAL (textChanged (QString)),
 			 SLOT (passkeyTextChanged (QString)));
 	connect (ui_->createBackupsEdit_,
-			 SIGNAL (stateChanged(int)),
-			 SLOT (createBackupChanged(int)));
+			 SIGNAL (stateChanged (int)),
+			 SLOT (createBackupChanged (int)));
 	connect (ui_->startButton_, SIGNAL (clicked()), SLOT (start()));
 	connect (ui_->actionAbout, SIGNAL (triggered()), SLOT (about ()));
 
@@ -101,7 +101,7 @@ void MainWindow::start ()
 	q_check_ptr (currentChanger_);
 
 	const bool result = currentChanger_->changePasskey (ui_->oldPasskeyEdit_->text (),
-														ui_->newPasskeyEdit_->text ());
+						ui_->newPasskeyEdit_->text ());
 	QMessageBox::information (this, "", result ? tr ("Complite") : tr ("Error"));
 }
 
@@ -227,15 +227,16 @@ void MainWindow::about ()
 {
 	AboutDialog d (this);
 
-	d.setAuthor(tr("PanteR"));
-	d.setMail("panter.dsd@gmail.com");
-	d.setPhone("89062440151");
-	d.setLicense("GNU GPL v3");
+	d.setAuthor (tr ("PanteR"));
+	d.setMail ("panter.dsd@gmail.com");
+	d.setPhone ("89062440151");
+	d.setLicense ("GNU GPL v3");
 
 	{
-		QFile file(":/LICENSE.GPL3");
-		if (file.open(QFile::ReadOnly)) {
-			d.setLicenseText(QString(file.readAll()));
+		QFile file (":/LICENSE.GPL3");
+
+		if (file.open (QFile::ReadOnly)) {
+			d.setLicenseText (QString (file.readAll()));
 			file.close();
 		}
 	}
