@@ -24,7 +24,7 @@
 #include "mainwindow.h"
 
 const QString appName = "PasskeyChanger";
-const QString version = "0.0.0.0";
+const QString version = "0.0.1.0";
 
 int main (int argc, char **argv)
 {
