@@ -46,6 +46,15 @@ private Q_SLOTS:
 	virtual void getFilePath ();
 
 protected:
+	QStringList fileMask () const {
+		return fileMask_;
+	}
+
+	void setFileMask (const QStringList &fileMask) {
+		fileMask_ = fileMask;
+	}
+
+private:
 	QStringList fileMask_;
 };
 
