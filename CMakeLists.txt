@@ -10,6 +10,7 @@ add_definitions(-DUNICODE)
 
 include_directories(
 src
+src/dialogs
 ${CMAKE_CURRENT_BINARY_DIR}
 )
 
@@ -38,20 +39,38 @@ src/mainwindow.ui
 )
 
 ################################################################
+# dialogs
+################################################################
+
+set (dialogs_SRC
+src/dialogs/aboutdialog.cpp
+)
+
+set (dialogs_HEADERS
+src/dialogs/aboutdialog.h
+)
+
+set (dialogs_UI
+)
+
+################################################################
 # all
 ################################################################
 set(
 SOURCES
 ${src_SRC}
+${dialogs_SRC}
 )
 
 set(
 HEADERS
 ${src_HEADERS}
+${dialogs_HEADERS}
 )
 
 set (UI
 ${src_UI}
+${dialogs_UI}
 )
 
 qt4_wrap_ui( UI_HEADERS ${UI} )
