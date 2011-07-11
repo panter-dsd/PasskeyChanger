@@ -1,5 +1,5 @@
-set (PROJECT_OUTPUT_NAME PasskeyChanger)
-project(${PROJECT_OUTPUT_NAME})
+set (PROJECT_OUTPUT_NAME passkeychanger)
+project(PasskeyChanger)
 
 cmake_minimum_required( VERSION 2.6 )
 
