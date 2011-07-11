@@ -19,6 +19,8 @@
 #include <QtCore/QTextCodec>
 #include <QtCore/QTranslator>
 #include <QtCore/QLocale>
+#include <QtCore/QDebug>
+
 #include <QtGui/QApplication>
 
 #include "mainwindow.h"
@@ -39,11 +41,13 @@ int main (int argc, char **argv)
 	app.setApplicationVersion (version);
 	app.setApplicationName (appName);
 
-// 	QTranslator translator;
-// 	translator.load (":/share/translations/VolnaSettings_"
-// 					 + QLocale::system().name()
-// 					 + ".qm");
-// 	app.installTranslator (&translator);
+	QTranslator translator;
+	translator.load (":/share/translations/"
+					 + appName.toLower ()
+					 + "_"
+					 + QLocale::system().name()
+					 + ".qm");
+	app.installTranslator (&translator);
 
 	app.setQuitOnLastWindowClosed (true);
 

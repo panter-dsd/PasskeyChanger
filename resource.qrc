@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>LICENSE.GPL3</file>
+        <file>share/translations/passkeychanger_ru.qm</file>
     </qresource>
 </RCC>
