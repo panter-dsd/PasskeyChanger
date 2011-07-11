@@ -38,29 +38,29 @@ public:
 	void setLicenseText (const QString &text);
 
 	void setAuthor (const QString &author) {
-		m_author = author;
+		author_ = author;
 		printCopyright();
 	}
 
 	void setMail (const QString &mail) {
-		m_mail = mail;
+		mail_ = mail;
 		printCopyright();
 	}
 
 	void setPhone (const QString &phone) {
-		m_phone = phone;
+		phone_ = phone;
 		printCopyright();
 	}
 
 	void setLicense (const QString &license) {
-		m_license = license;
+		license_ = license;
 		printCopyright();
 	}
 
 	void addThanks (const QString &name, const QString &email, const QString &typeWork) {
 		QStringList l;
 		l << name << email << typeWork;
-		m_thanks << l;
+		thanks_ << l;
 		printThanks ();
 	}
 
@@ -69,22 +69,22 @@ private:
 	void printThanks ();
 
 private:
-	QLabel *iconLabel;
-	QLabel *aboutLabel;
-	QToolButton *closeButton;
+	QLabel *iconLabel_;
+	QLabel *aboutLabel_;
+	QToolButton *closeButton_;
 
-	QTabWidget *tabWidget;
+	QTabWidget *tabWidget_;
 
-	QTextEdit *copyrightView;
-	QTextEdit *thanksView;
-	QTextEdit *licenseView;
+	QTextEdit *copyrightView_;
+	QTextEdit *thanksView_;
+	QTextEdit *licenseView_;
 
-	QString m_author;
-	QString m_mail;
-	QString m_phone;
-	QString m_license;
+	QString author_;
+	QString mail_;
+	QString phone_;
+	QString license_;
 
-	QList<QStringList> m_thanks;
+	QList<QStringList> thanks_;
 };
 
 #endif //ABOUTDIALOG_H

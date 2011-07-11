@@ -36,75 +36,76 @@ AboutDialog::AboutDialog (QWidget *parent, Qt::WFlags f)
 {
 	resize (400, 300);
 
-	iconLabel = new QLabel (this);
-	iconLabel->setPixmap (QApplication::windowIcon().pixmap (QSize (64, 64)));
-	iconLabel->setSizePolicy (QSizePolicy::Fixed, QSizePolicy::Fixed);
+	iconLabel_ = new QLabel (this);
+	iconLabel_->setPixmap (QApplication::windowIcon().pixmap (QSize (64, 64)));
+	iconLabel_->setSizePolicy (QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-	QFileInfo fi (QApplication::applicationFilePath());
-	aboutLabel = new QLabel (this);
-	aboutLabel->setText ("<h2>"
+	aboutLabel_ = new QLabel (this);
+
+	const QDateTime createdDateTime = QFileInfo (QApplication::applicationFilePath()).created ();
+	aboutLabel_->setText ("<h2>"
 						 + QApplication::applicationName()
 						 + " "
 						 + QApplication::applicationVersion()
 						 + "</h2>"
 						 + "<p>"
-						 + tr ("Compiled %1 in %2").arg (fi.created().date().toString ("dd.MM.yyyy")).arg (fi.created().time().toString ("hh:mm:ss")));
+						 + tr ("Compiled %1 in %2").arg (createdDateTime.toString ("dd.MM.yyyy")).arg (createdDateTime.toString ("hh:mm:ss")));
 
-	closeButton = new QToolButton (this);
-	closeButton->setText (tr ("Close"));
-	closeButton->setIcon (style()->standardIcon (QStyle::SP_DialogCloseButton));
-	closeButton->setAutoRaise (true);
-	closeButton->setToolButtonStyle (Qt::ToolButtonTextUnderIcon);
-	connect (closeButton, SIGNAL (clicked()), this, SLOT (close()));
+	closeButton_ = new QToolButton (this);
+	closeButton_->setText (tr ("Close"));
+	closeButton_->setIcon (style()->standardIcon (QStyle::SP_DialogCloseButton));
+	closeButton_->setAutoRaise (true);
+	closeButton_->setToolButtonStyle (Qt::ToolButtonTextUnderIcon);
+	connect (closeButton_, SIGNAL (clicked()), SLOT (close()));
 
 	QHBoxLayout *pictureAndTextLayout = new QHBoxLayout();
-	pictureAndTextLayout->addWidget (iconLabel);
-	pictureAndTextLayout->addWidget (aboutLabel);
-	pictureAndTextLayout->addWidget (closeButton);
+	pictureAndTextLayout->addWidget (iconLabel_);
+	pictureAndTextLayout->addWidget (aboutLabel_);
+	pictureAndTextLayout->addWidget (closeButton_);
 
 //Tabs
-	tabWidget = new QTabWidget (this);
+	tabWidget_ = new QTabWidget (this);
 
 	QPalette palette = QApplication::palette();
 	palette.setColor (QPalette::Base, palette.color (QPalette::Button));
 //Copyright
-	copyrightView = new QTextEdit (this);
-	copyrightView->setReadOnly (true);
-	copyrightView->setWordWrapMode (QTextOption::NoWrap);
-	copyrightView->setTextInteractionFlags (Qt::TextBrowserInteraction);
-	copyrightView->setPalette (palette);
+	copyrightView_ = new QTextEdit (this);
+	copyrightView_->setReadOnly (true);
+	copyrightView_->setWordWrapMode (QTextOption::NoWrap);
+	copyrightView_->setTextInteractionFlags (Qt::TextBrowserInteraction);
+	copyrightView_->setPalette (palette);
 
-	tabWidget->addTab (copyrightView, tr ("Copyright"));
+	tabWidget_->addTab (copyrightView_, tr ("Copyright"));
 
 //Thanks
-	thanksView = new QTextEdit (this);
-	thanksView->setReadOnly (true);
-	thanksView->setWordWrapMode (QTextOption::NoWrap);
-	thanksView->setTextInteractionFlags (Qt::TextBrowserInteraction);
-	thanksView->setPalette (palette);
+	thanksView_ = new QTextEdit (this);
+	thanksView_->setReadOnly (true);
+	thanksView_->setWordWrapMode (QTextOption::NoWrap);
+	thanksView_->setTextInteractionFlags (Qt::TextBrowserInteraction);
+	thanksView_->setPalette (palette);
 
-	tabWidget->addTab (thanksView, tr ("Thanks"));
+	tabWidget_->addTab (thanksView_, tr ("Thanks"));
 
 //License
-	licenseView = new QTextEdit (this);
-	licenseView->setReadOnly (true);
-	licenseView->setWordWrapMode (QTextOption::NoWrap);
-	licenseView->setTextInteractionFlags (Qt::TextBrowserInteraction);
-	licenseView->setPalette (palette);
+	licenseView_ = new QTextEdit (this);
+	licenseView_->setReadOnly (true);
+	licenseView_->setWordWrapMode (QTextOption::NoWrap);
+	licenseView_->setTextInteractionFlags (Qt::TextBrowserInteraction);
+	licenseView_->setPalette (palette);
 
-	tabWidget->addTab (licenseView, tr ("License"));
+	tabWidget_->addTab (licenseView_, tr ("License"));
 
 //Main layout
 	QVBoxLayout *mainLayout = new QVBoxLayout();
 	mainLayout->addLayout (pictureAndTextLayout);
-	mainLayout->addWidget (tabWidget);
+	mainLayout->addWidget (tabWidget_);
 
 	setLayout (mainLayout);
 }
 
 void AboutDialog::setLicenseText (const QString &text)
 {
-	licenseView->setText (text);
+	licenseView_->setText (text);
 }
 
 void AboutDialog::printCopyright()
@@ -117,7 +118,7 @@ void AboutDialog::printCopyright()
 						 + "<p>"
 						 + "<b>" + tr ("License") + "</b>: %4";
 
-	copyrightView->setText (text.arg (m_author).arg (m_mail).arg (m_phone).arg (m_license));
+	copyrightView_->setText (text.arg (author_).arg (mail_).arg (phone_).arg (license_));
 }
 
 void AboutDialog::printThanks ()
@@ -126,9 +127,9 @@ void AboutDialog::printThanks ()
 						 + "<BR><b>" + tr ("e-mail") + "</b>: <a href=\"%2\">%2</a>"
 						 + "<BR><b>" + tr ("Work type") + "</b>: %3";
 
-	thanksView->clear();
+	thanksView_->clear();
 
-	foreach (const QStringList & l, m_thanks) {
-		thanksView->append (text.arg (l[0]).arg (l[1]).arg (l[2]));
+	foreach (const QStringList & l, thanks_) {
+		thanksView_->append (text.arg (l[0]).arg (l[1]).arg (l[2]));
 	}
 }
