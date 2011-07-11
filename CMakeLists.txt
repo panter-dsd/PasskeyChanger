@@ -22,6 +22,7 @@ src/main.cpp
 src/mainwindow.cpp
 src/torrentfilepasskeychanger.cpp
 src/torrentdirpasskeychanger.cpp
+src/qbittorrentpasskeychanger.cpp
 )
 
 set (src_HEADERS
@@ -29,6 +30,7 @@ src/mainwindow.h
 src/abstractpasskeychanger.h
 src/torrentfilepasskeychanger.h
 src/torrentdirpasskeychanger.h
+src/qbittorrentpasskeychanger.h
 )
 
 set (src_UI

@@ -25,13 +25,10 @@
 #include "abstractpasskeychanger.h"
 #include "torrentfilepasskeychanger.h"
 #include "torrentdirpasskeychanger.h"
+#include "qbittorrentpasskeychanger.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-#ifdef Q_OS_LINUX
-//const QString defaultPath = QDir::homePath () + "/.local/share/data/qBittorrent/BT_backup/";
-#endif
 
 MainWindow::MainWindow (QWidget *parent)
 	: QMainWindow (parent), ui_ (new Ui::MainWindow), currentChanger_ (0)
@@ -82,6 +79,7 @@ void MainWindow::initAbstractPasskeyChangers ()
 {
 	abstractPasskeyChangers_.push_back (new TorrentFilePasskeyChanger (this));
 	abstractPasskeyChangers_.push_back (new TorrentDirPasskeyChanger (this));
+	abstractPasskeyChangers_.push_back (new QBittorrentPasskeyChanger (this));
 }
 
 void MainWindow::initSettingWidgets ()
