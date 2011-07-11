@@ -64,11 +64,11 @@ void TorrentDirPasskeyChanger::getFilePath ()
 {
 	const QString fileName = QFileDialog::getExistingDirectory (settingsWidget_,
 							 tr ("Dir with torrents"),
-							 defaultDir_);
+							 defaultDir ());
 
 	if (!fileName.isEmpty ()) {
 		pathEdit_->setText (fileName);
-		defaultDir_ = fileName;
+		setDefaultDir (fileName);
 
 		const bool isReady_ = isReady ();
 		emit stateChanged (isReady_);

@@ -62,8 +62,18 @@ private Q_SLOTS:
 	virtual void getFilePath ();
 
 protected:
+	QString defaultDir () const {
+		return defaultDir_;
+	}
+
+	void setDefaultDir (const QString &defaultDir) {
+		defaultDir_ = defaultDir;
+	}
+
+private:
 	QString defaultDir_;
 
+protected:
 	QWidget *settingsWidget_;
 	QLabel *pathLabel_;
 	QLineEdit *pathEdit_;
