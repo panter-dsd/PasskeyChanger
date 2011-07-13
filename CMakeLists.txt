@@ -81,6 +81,10 @@ set( RESOURCES resource.qrc )
 
 qt4_add_resources( QRC_SOURCES ${RESOURCES} )
 
-add_executable( ${PROJECT_OUTPUT_NAME} ${SOURCES} ${MOC_SOURCES} ${QRC_SOURCES} ${UI_HEADERS})
+if(${CMAKE_BUILD_TYPE} STREQUAL Debug)
+	add_executable( ${PROJECT_OUTPUT_NAME} ${SOURCES} ${MOC_SOURCES} ${QRC_SOURCES} ${UI_HEADERS})
+else()
+	add_executable( ${PROJECT_OUTPUT_NAME} WIN32 ${SOURCES} ${MOC_SOURCES} ${QRC_SOURCES} ${UI_HEADERS})
+endif()
 
 target_link_libraries( ${PROJECT_OUTPUT_NAME} ${QT_LIBRARIES} )
