@@ -41,6 +41,9 @@ private:
 	virtual QString name_p () const {
 		return tr ("qBittorent");
 	}
+
+private:
+	void disableTrackerExchangeOption ();
 };
 
 #endif // QBITTORRENTPASSKEYCHANGER_H

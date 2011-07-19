@@ -17,6 +17,8 @@
 */
 
 #include <QtCore/QDir>
+#include <QtCore/QSettings>
+#include <QtCore/QDebug>
 
 #include <QtGui/QLineEdit>
 
@@ -47,4 +49,12 @@ QBittorrentPasskeyChanger::QBittorrentPasskeyChanger (QObject *parent)
 
 	setDefaultDir (defaultPath);
 	pathEdit_->setText (defaultPath);
+
+	disableTrackerExchangeOption ();
+}
+
+void QBittorrentPasskeyChanger::disableTrackerExchangeOption ()
+{
+	QSettings settings ("qBittorrent", "qBittorrent");
+	settings.setValue ("Preferences/Advanced/TrackerExchange", false);
 }
